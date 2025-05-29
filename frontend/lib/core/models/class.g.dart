@@ -36,7 +36,7 @@ _Class _$ClassFromJson(Map<String, dynamic> json) => _Class(
   id: json['_id'] as String,
   schoolId: json['schoolId'] as String,
   teacherId: json['teacherId'] as String?,
-  grade: $enumDecode(_$GradeEnumMap, json['grade']),
+  grade: const GradeConverter().fromJson(json['grade'] as String),
   section: json['section'] as String?,
   year: json['year'] as String,
   areas:
@@ -48,19 +48,8 @@ _Class _$ClassFromJson(Map<String, dynamic> json) => _Class(
 Map<String, dynamic> _$ClassToJson(_Class instance) => <String, dynamic>{
   'schoolId': instance.schoolId,
   'teacherId': instance.teacherId,
-  'grade': _$GradeEnumMap[instance.grade]!,
+  'grade': const GradeConverter().toJson(instance.grade),
   'section': instance.section,
   'year': instance.year,
   'areas': instance.areas.map((e) => e.toJson()).toList(),
-};
-
-const _$GradeEnumMap = {
-  Grade.nursery: 'nursery',
-  Grade.lkg: 'lkg',
-  Grade.ukg: 'ukg',
-  Grade.grade1: 'grade1',
-  Grade.grade2: 'grade2',
-  Grade.grade3: 'grade3',
-  Grade.grade4: 'grade4',
-  Grade.grade5: 'grade5',
 };

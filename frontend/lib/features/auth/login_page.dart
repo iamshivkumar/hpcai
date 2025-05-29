@@ -55,8 +55,10 @@ class LoginPage extends HookWidget {
                           builder: (context, ref, child) {
                             final repo = ref.read(authRepositoryProvider);
 
-                            Future<void> handleAuthResponse(UserSession session) async {
-                              final cache =  ref.read(cacheProvider);
+                            Future<void> handleAuthResponse(
+                              UserSession session,
+                            ) async {
+                              final cache = ref.read(cacheProvider);
                               await cache.setSession(session);
                               ref.refresh(sessionProvider);
                               context.go('/');
@@ -69,7 +71,9 @@ class LoginPage extends HookWidget {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Text(
-                                    requestId.value == null ? 'Lets gets Started' : 'Verify OTP',
+                                    requestId.value == null
+                                        ? 'Lets gets Started'
+                                        : 'Verify OTP',
                                     style: context.style.headlineMedium,
                                   ),
                                   const SizedBox(height: 24),
@@ -87,26 +91,34 @@ class LoginPage extends HookWidget {
                                         FilteringTextInputFormatter.digitsOnly,
                                         LengthLimitingTextInputFormatter(10),
                                       ],
-                                      onChanged: (value) => phone.value = value.trim(),
-                                      validator: (value) =>
-                                          value!.length == 10 ? null : 'Enter valid phone number',
+                                      onChanged:
+                                          (value) => phone.value = value.trim(),
+                                      validator:
+                                          (value) =>
+                                              value!.length == 10
+                                                  ? null
+                                                  : 'Enter valid phone number',
                                     ),
                                     const SizedBox(height: 24),
                                     FilledButton(
-                                      onPressed: loading.value || phone.value.length != 10
-                                          ? null
-                                          : () async {
-                                              if (formKey.value.currentState!.validate()) {
-                                                try {
-                                                  loading.value = true;
-                                                  requestId.value = await repo.sendOtp(phone.value);
-                                                } catch (e) {
-                                                  context.error(e);
-                                                } finally {
-                                                  loading.value = false;
+                                      onPressed:
+                                          loading.value ||
+                                                  phone.value.length != 10
+                                              ? null
+                                              : () async {
+                                                if (formKey.value.currentState!
+                                                    .validate()) {
+                                                  try {
+                                                    loading.value = true;
+                                                    requestId.value = await repo
+                                                        .sendOtp(phone.value);
+                                                  } catch (e) {
+                                                    context.error(e);
+                                                  } finally {
+                                                    loading.value = false;
+                                                  }
                                                 }
-                                              }
-                                            },
+                                              },
                                       child: LoadingButtonTextWrapper(
                                         loading: loading.value,
                                         child: const Text('Send OTP'),
@@ -120,7 +132,10 @@ class LoginPage extends HookWidget {
                                       onCompleted: (value) async {
                                         try {
                                           loading.value = true;
-                                          final session = await repo.verifyOtp(value, requestId.value!);
+                                          final session = await repo.verifyOtp(
+                                            value,
+                                            requestId.value!,
+                                          );
                                           await handleAuthResponse(session);
                                         } catch (e) {
                                           context.error(e);

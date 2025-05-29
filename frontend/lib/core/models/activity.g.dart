@@ -9,7 +9,7 @@ part of 'activity.dart';
 _Activity _$ActivityFromJson(Map<String, dynamic> json) => _Activity(
   id: json['_id'] as String,
   schoolId: json['schoolId'] as String?,
-  grade: $enumDecode(_$GradeEnumMap, json['grade']),
+  grade: const GradeConverter().fromJson(json['grade'] as String),
   area: $enumDecode(_$AreaEnumMap, json['area']),
   medium: json['medium'] as String?,
   title: json['title'] as String,
@@ -41,7 +41,7 @@ _Activity _$ActivityFromJson(Map<String, dynamic> json) => _Activity(
 
 Map<String, dynamic> _$ActivityToJson(_Activity instance) => <String, dynamic>{
   'schoolId': instance.schoolId,
-  'grade': _$GradeEnumMap[instance.grade]!,
+  'grade': const GradeConverter().toJson(instance.grade),
   'area': _$AreaEnumMap[instance.area]!,
   'medium': instance.medium,
   'title': instance.title,
@@ -56,17 +56,6 @@ Map<String, dynamic> _$ActivityToJson(_Activity instance) => <String, dynamic>{
       e.map((k, e) => MapEntry(_$RubricLevelEnumMap[k]!, e)),
     ),
   ),
-};
-
-const _$GradeEnumMap = {
-  Grade.nursery: 'nursery',
-  Grade.lkg: 'lkg',
-  Grade.ukg: 'ukg',
-  Grade.grade1: 'grade1',
-  Grade.grade2: 'grade2',
-  Grade.grade3: 'grade3',
-  Grade.grade4: 'grade4',
-  Grade.grade5: 'grade5',
 };
 
 const _$AreaEnumMap = {

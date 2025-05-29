@@ -26,6 +26,7 @@ const _$AssessmentElementTypeEnumMap = {
   AssessmentElementType.likeart: 'likeart',
   AssessmentElementType.quiz: 'quiz',
   AssessmentElementType.grid: 'grid',
+  AssessmentElementType.image: 'image',
 };
 
 _AssessmentSection _$AssessmentSectionFromJson(Map<String, dynamic> json) =>
@@ -51,9 +52,18 @@ Map<String, dynamic> _$AssessmentSectionToJson(_AssessmentSection instance) =>
     };
 
 _Assessment _$AssessmentFromJson(Map<String, dynamic> json) => _Assessment(
+  id: json['_id'] as String,
   schoolId: json['schoolId'] as String,
   classId: json['classId'] as String,
   type: $enumDecode(_$AssessmentTypeEnumMap, json['type']),
+  name: json['name'] as String,
+  activityId: json['activityId'] as String?,
+  activity:
+      json['activity'] == null
+          ? null
+          : Activity.fromJson(json['activity'] as Map<String, dynamic>),
+  groupId: json['groupId'] as String?,
+  studentId: json['studentId'] as String?,
   area: $enumDecodeNullable(_$AreaEnumMap, json['area']),
   medium: json['medium'] as String?,
   term: json['term'] as String?,
@@ -69,10 +79,13 @@ Map<String, dynamic> _$AssessmentToJson(_Assessment instance) =>
       'schoolId': instance.schoolId,
       'classId': instance.classId,
       'type': _$AssessmentTypeEnumMap[instance.type]!,
+      'name': instance.name,
+      'activityId': instance.activityId,
+      'groupId': instance.groupId,
+      'studentId': instance.studentId,
       'area': _$AreaEnumMap[instance.area],
       'medium': instance.medium,
       'term': instance.term,
-      'sections': instance.sections.map((e) => e.toJson()).toList(),
     };
 
 const _$AssessmentTypeEnumMap = {
@@ -95,4 +108,45 @@ const _$AreaEnumMap = {
   Area.worldAround: 'worldAround',
   Area.artEd: 'artEd',
   Area.physicalEd: 'physicalEd',
+};
+
+_LikeartItem _$LikeartItemFromJson(Map<String, dynamic> json) => _LikeartItem(
+  index: (json['index'] as num).toInt(),
+  key: json['key'] as String,
+  value: json['value'] as String,
+);
+
+Map<String, dynamic> _$LikeartItemToJson(_LikeartItem instance) =>
+    <String, dynamic>{
+      'index': instance.index,
+      'key': instance.key,
+      'value': instance.value,
+    };
+
+_QuizItem _$QuizItemFromJson(Map<String, dynamic> json) => _QuizItem(
+  index: (json['index'] as num).toInt(),
+  key: json['key'] as String,
+  question: json['question'] as String?,
+  type: $enumDecode(
+    _$QuizItemTypeEnumMap,
+    json['type'],
+    unknownValue: QuizItemType.none,
+  ),
+);
+
+Map<String, dynamic> _$QuizItemToJson(_QuizItem instance) => <String, dynamic>{
+  'index': instance.index,
+  'key': instance.key,
+  'question': instance.question,
+  'type': _$QuizItemTypeEnumMap[instance.type]!,
+};
+
+const _$QuizItemTypeEnumMap = {
+  QuizItemType.longAnswer: 'long-answer',
+  QuizItemType.shortAnswer: 'short-answer',
+  QuizItemType.trueFalse: 'true-false',
+  QuizItemType.multipleShortAnswers: 'multiple-short-answers',
+  QuizItemType.choice: 'choice',
+  QuizItemType.multipleChoice: 'multiple-choice',
+  QuizItemType.none: 'none',
 };

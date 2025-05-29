@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ActivityHeader extends StatelessWidget implements PreferredSizeWidget {
-  const ActivityHeader({super.key, required this.activity});
+  const ActivityHeader({super.key,  required this.activity});
+
+
 
   final Activity activity;
 

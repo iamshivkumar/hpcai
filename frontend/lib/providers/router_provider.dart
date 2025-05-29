@@ -9,14 +9,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final routerProvider = Provider((ref) {
   return GoRouter(
     redirect: (context, state) async {
-      final cache =  ref.read(cacheProvider);
-      final session = cache.currentSession;
+      // final cache =  ref.read(cacheProvider);
+      // final session = cache.currentSession;
 
-      if (session == null) {
-        return '/login';
-      } else if (state.matchedLocation == '/login') {
-        return '/';
-      }
+      // if (session == null) {
+      //   return '/login';
+      // } else if (state.matchedLocation == '/login') {
+      //   return '/';
+      // }
     },
     routes: [
       GoRoute(path: '/', builder: (context, state) => Root()),

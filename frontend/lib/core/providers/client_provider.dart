@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:ai_school/config.dart';
+import 'package:ai_school/core/providers/cache_provider.dart';
 import 'package:ai_school/features/auth/providers/session_provider.dart';
+import 'package:ai_school/providers/router_provider.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -33,6 +35,11 @@ extension DioExtension on Dio {
         onError: (e, handler) async {
           log(e.response?.statusCode?.toString() ?? '');
           log(e.response?.data.toString() ?? '');
+
+          if(e.response?.statusCode == 401){
+            await ref.read(cacheProvider).setSession(null);
+            ref.read(routerProvider).refresh();
+          }
           handler.reject(
             e.copyWith(
               message:

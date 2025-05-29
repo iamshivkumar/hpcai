@@ -1,3 +1,6 @@
+import 'package:json_annotation/json_annotation.dart';
+
+
 enum Grade {
   nursery('nursery', 'Nursery'),
   lkg('lkg', 'LKG'),
@@ -15,6 +18,22 @@ enum Grade {
   final String value;
 
   final String label;
+}
+
+
+class GradeConverter implements JsonConverter<Grade, String> {
+  const GradeConverter();
+
+  @override
+  Grade fromJson(String json) {
+    return Grade.values.firstWhere(
+      (g) => g.value == json,
+      orElse: () => throw ArgumentError('Invalid Grade: $json'),
+    );
+  }
+
+  @override
+  String toJson(Grade grade) => grade.value;
 }
 
 

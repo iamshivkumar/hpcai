@@ -152,7 +152,7 @@ as String,
 /// @nodoc
 mixin _$Class {
 
-@JsonKey(includeToJson: false, name: '_id') String get id; String get schoolId; String? get teacherId; Grade get grade; String? get section; String get year; List<ClassArea> get areas;
+@JsonKey(includeToJson: false, name: '_id') String get id; String get schoolId; String? get teacherId;@GradeConverter() Grade get grade; String? get section; String get year; List<ClassArea> get areas;
 /// Create a copy of Class
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -185,7 +185,7 @@ abstract mixin class $ClassCopyWith<$Res>  {
   factory $ClassCopyWith(Class value, $Res Function(Class) _then) = _$ClassCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(includeToJson: false, name: '_id') String id, String schoolId, String? teacherId, Grade grade, String? section, String year, List<ClassArea> areas
+@JsonKey(includeToJson: false, name: '_id') String id, String schoolId, String? teacherId,@GradeConverter() Grade grade, String? section, String year, List<ClassArea> areas
 });
 
 
@@ -222,13 +222,13 @@ as List<ClassArea>,
 @JsonSerializable()
 
 class _Class implements Class {
-  const _Class({@JsonKey(includeToJson: false, name: '_id') required this.id, required this.schoolId, this.teacherId, required this.grade, this.section, required this.year, required final  List<ClassArea> areas}): _areas = areas;
+  const _Class({@JsonKey(includeToJson: false, name: '_id') required this.id, required this.schoolId, this.teacherId, @GradeConverter() required this.grade, this.section, required this.year, required final  List<ClassArea> areas}): _areas = areas;
   factory _Class.fromJson(Map<String, dynamic> json) => _$ClassFromJson(json);
 
 @override@JsonKey(includeToJson: false, name: '_id') final  String id;
 @override final  String schoolId;
 @override final  String? teacherId;
-@override final  Grade grade;
+@override@GradeConverter() final  Grade grade;
 @override final  String? section;
 @override final  String year;
  final  List<ClassArea> _areas;
@@ -272,7 +272,7 @@ abstract mixin class _$ClassCopyWith<$Res> implements $ClassCopyWith<$Res> {
   factory _$ClassCopyWith(_Class value, $Res Function(_Class) _then) = __$ClassCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(includeToJson: false, name: '_id') String id, String schoolId, String? teacherId, Grade grade, String? section, String year, List<ClassArea> areas
+@JsonKey(includeToJson: false, name: '_id') String id, String schoolId, String? teacherId,@GradeConverter() Grade grade, String? section, String year, List<ClassArea> areas
 });
 
 

@@ -38,6 +38,7 @@ class PinPutField extends StatelessWidget {
           ?.copyWith(color: context.scheme.primaryContainer.withOpacity(0.25)),
     );
     return Pinput(
+      autofocus: true,
       enabled: enabled,
       controller: controller,
       length: 6,

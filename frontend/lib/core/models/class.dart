@@ -22,6 +22,7 @@ abstract class Class with _$Class {
     required String id,
     required String schoolId,
     String? teacherId,
+    @GradeConverter()
     required Grade grade,
     String? section,
     required String year,

@@ -9,10 +9,10 @@ part 'activity.g.dart';
 @freezed
 abstract class Activity with _$Activity {
   const factory Activity({
-    @JsonKey(includeToJson: false, name: '_id') 
-    required String id,
+    @JsonKey(includeToJson: false, name: '_id') required String id,
     String? schoolId,
-    required Grade grade,
+
+    @GradeConverter() required Grade grade,
     required Area area,
     String? medium,
     required String title,

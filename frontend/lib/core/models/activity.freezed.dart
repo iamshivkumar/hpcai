@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Activity {
 
-@JsonKey(includeToJson: false, name: '_id') String get id; String? get schoolId; Grade get grade; Area get area; String? get medium; String get title; String get description; List<String>? get questions; List<String>? get pedagogies; List<String> get goals; List<String> get competencies; Map<RubricAbility, Map<RubricLevel, String>> get rubric;
+@JsonKey(includeToJson: false, name: '_id') String get id; String? get schoolId;@GradeConverter() Grade get grade; Area get area; String? get medium; String get title; String get description; List<String>? get questions; List<String>? get pedagogies; List<String> get goals; List<String> get competencies; Map<RubricAbility, Map<RubricLevel, String>> get rubric;
 /// Create a copy of Activity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $ActivityCopyWith<$Res>  {
   factory $ActivityCopyWith(Activity value, $Res Function(Activity) _then) = _$ActivityCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(includeToJson: false, name: '_id') String id, String? schoolId, Grade grade, Area area, String? medium, String title, String description, List<String>? questions, List<String>? pedagogies, List<String> goals, List<String> competencies, Map<RubricAbility, Map<RubricLevel, String>> rubric
+@JsonKey(includeToJson: false, name: '_id') String id, String? schoolId,@GradeConverter() Grade grade, Area area, String? medium, String title, String description, List<String>? questions, List<String>? pedagogies, List<String> goals, List<String> competencies, Map<RubricAbility, Map<RubricLevel, String>> rubric
 });
 
 
@@ -91,12 +91,12 @@ as Map<RubricAbility, Map<RubricLevel, String>>,
 @JsonSerializable()
 
 class _Activity implements Activity {
-  const _Activity({@JsonKey(includeToJson: false, name: '_id') required this.id, this.schoolId, required this.grade, required this.area, this.medium, required this.title, required this.description, final  List<String>? questions, final  List<String>? pedagogies, final  List<String> goals = const [], final  List<String> competencies = const [], final  Map<RubricAbility, Map<RubricLevel, String>> rubric = const {}}): _questions = questions,_pedagogies = pedagogies,_goals = goals,_competencies = competencies,_rubric = rubric;
+  const _Activity({@JsonKey(includeToJson: false, name: '_id') required this.id, this.schoolId, @GradeConverter() required this.grade, required this.area, this.medium, required this.title, required this.description, final  List<String>? questions, final  List<String>? pedagogies, final  List<String> goals = const [], final  List<String> competencies = const [], final  Map<RubricAbility, Map<RubricLevel, String>> rubric = const {}}): _questions = questions,_pedagogies = pedagogies,_goals = goals,_competencies = competencies,_rubric = rubric;
   factory _Activity.fromJson(Map<String, dynamic> json) => _$ActivityFromJson(json);
 
 @override@JsonKey(includeToJson: false, name: '_id') final  String id;
 @override final  String? schoolId;
-@override final  Grade grade;
+@override@GradeConverter() final  Grade grade;
 @override final  Area area;
 @override final  String? medium;
 @override final  String title;
@@ -174,7 +174,7 @@ abstract mixin class _$ActivityCopyWith<$Res> implements $ActivityCopyWith<$Res>
   factory _$ActivityCopyWith(_Activity value, $Res Function(_Activity) _then) = __$ActivityCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(includeToJson: false, name: '_id') String id, String? schoolId, Grade grade, Area area, String? medium, String title, String description, List<String>? questions, List<String>? pedagogies, List<String> goals, List<String> competencies, Map<RubricAbility, Map<RubricLevel, String>> rubric
+@JsonKey(includeToJson: false, name: '_id') String id, String? schoolId,@GradeConverter() Grade grade, Area area, String? medium, String title, String description, List<String>? questions, List<String>? pedagogies, List<String> goals, List<String> competencies, Map<RubricAbility, Map<RubricLevel, String>> rubric
 });
 
 
