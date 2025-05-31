@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const activitySchema = new mongoose.Schema({
-  schoolId: { type: String, default: null },
+  schoolId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'School',
+          required: false
+      },
   grade: { type: String, required: true },
   area: { type: String, required: true },
   medium: { type: String },
@@ -31,4 +35,12 @@ activitySchema.pre(/^find/, function (next) {
   next();
 });
 
-module.exports = mongoose.model('Activity', activitySchema);
+
+// Create the model
+const Activity = mongoose.model('Activity', activitySchema);
+
+// ✅ Export both
+module.exports = {
+  Activity,
+  activitySchema,
+};

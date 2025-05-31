@@ -10,6 +10,7 @@ const express = require('express');
      const classesRoutes = require('./routes/classes');
      const teachersRoutes = require('./routes/teachers');
      const studentsRoutes = require('./routes/students');
+     const activitiesRoutes = require('./routes/activities');
      const assessmentsRoutes = require('./routes/assessments');
      const evolutionsRoutes = require('./routes/evolutions');
      const config = require('./config/config');
@@ -46,6 +47,7 @@ const express = require('express');
      app.use('/classes', classesRoutes);
      app.use('/students', studentsRoutes);
      app.use('/teachers', teachersRoutes);
+     app.use('/activities', activitiesRoutes);
      app.use('/assessments', assessmentsRoutes);
      app.use('/evolutions', evolutionsRoutes);
 

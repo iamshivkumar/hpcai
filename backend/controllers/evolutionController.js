@@ -3,6 +3,8 @@ const Evolution = require('../models/Evolution');
 // Create a new evolution
 const createEvolution = async (req, res) => {
   try {
+        req.body.createdBy = req.user.id;
+
     const newEvolution = await Evolution.create({
       ...req.body,
       createdBy: req.user.id
@@ -17,6 +19,10 @@ const createEvolution = async (req, res) => {
 const updateEvolution = async (req, res) => {
   try {
     const { id } = req.params;
+
+
+        req.body.updatedBy = req.user.id;
+
 
     const updated = await Evolution.findByIdAndUpdate(
       id,

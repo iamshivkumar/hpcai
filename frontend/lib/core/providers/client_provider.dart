@@ -38,6 +38,7 @@ extension DioExtension on Dio {
 
           if(e.response?.statusCode == 401){
             await ref.read(cacheProvider).setSession(null);
+            ref.refresh(sessionProvider);
             ref.read(routerProvider).refresh();
           }
           handler.reject(
@@ -45,7 +46,7 @@ extension DioExtension on Dio {
               message:
                   e.response != null
                       ? (e.response!.data is Map<String, dynamic>
-                          ? e.response!.data!
+                          ? e.response!.data!['message'] ?? e.response!.data!['error']
                           : (e.response!.data as String).contains('html>')
                           ? e.toString()
                           : jsonDecode(e.response!.data)['message'] ?? jsonDecode(e.response!.data)['error'])

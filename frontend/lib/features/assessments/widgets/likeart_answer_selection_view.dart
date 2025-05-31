@@ -16,7 +16,7 @@ class LikeartAnswerSelectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 12,
+      spacing: 8,
       children: [
         ...LikeartAnswer.values.map((answer) {
           final selected = answer == this.selected;
@@ -34,6 +34,7 @@ class LikeartAnswerSelectionView extends StatelessWidget {
                     Text(
                       answer.value.capLabel,
                       style: TextStyle(
+                        fontSize: 12,
                         fontWeight: selected ? FontWeight.bold : null,
                       ),
                     ),

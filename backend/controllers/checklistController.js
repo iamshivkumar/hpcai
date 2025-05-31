@@ -3,6 +3,8 @@ const Checklist = require('../models/Checklist');
 // Create Checklist
 const createChecklist = async (req, res) => {
   try {
+        req.body.createdBy = req.user.id;
+
     const newChecklist = await Checklist.create(req.body);
     res.status(201).json(newChecklist);
   } catch (error) {
@@ -14,6 +16,9 @@ const createChecklist = async (req, res) => {
 const updateChecklist = async (req, res) => {
   try {
     const { id } = req.params;
+
+            req.body.updatedBy = req.user.id;
+
 
     const updated = await Checklist.findByIdAndUpdate(
       id,

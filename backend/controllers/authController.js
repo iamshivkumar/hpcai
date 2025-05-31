@@ -72,7 +72,7 @@ const verifyOTP = async (req, res) => {
             userId: user._id,
             secretToken,
             role: user.role,
-            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+            expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         });
         await session.save();
 

@@ -1,5 +1,10 @@
 import 'package:ai_school/core/models/class.dart';
 import 'package:ai_school/core/providers/cache_provider.dart';
+import 'package:ai_school/features/activities/write_activity_page.dart';
+import 'package:ai_school/features/assessments/activity_assessments_page.dart';
+import 'package:ai_school/features/assessments/assessment_page.dart';
+import 'package:ai_school/features/assessments/evolution_page.dart';
+import 'package:ai_school/features/assessments/fillup_assessment_page.dart';
 import 'package:ai_school/features/groups/write_group_page.dart';
 import 'package:ai_school/features/root/root.dart';
 import 'package:ai_school/features/students/students_page.dart';
@@ -30,6 +35,46 @@ final routerProvider = Provider((ref) {
             (context, state) =>
                 WriteGroupPage(args: state.extra as WriteGroupPageArgs),
       ),
+
+
+            GoRoute(
+        path: '/write-activity',
+        builder:
+            (context, state) =>
+                WriteActivityPage(args: state.extra as WriteActivityPageArgs),
+      ),
+
+      GoRoute(
+        path: '/assessment',
+        builder:
+            (context, state) =>
+                AssessmentPage(args: state.extra as AssessmentPageArgs),
+      ),
+
+      GoRoute(
+        path: '/fillup-assessment',
+        builder:
+            (context, state) => FillupAssessmentPage(
+              args: state.extra as FillupAssessmentPageArgs,
+            ),
+      ),
+
+      GoRoute(
+        path: '/activity-assessments',
+        builder:
+            (context, state) => ActivityAssessmentsPage(
+              args: state.extra as ActivityAssessmentsPageArgs,
+            ),
+      ),
+
+      GoRoute(
+        path: '/evolution',
+        builder:
+            (context, state) =>
+                EvolutionPage(args: state.extra as EvolutionPageArgs),
+      ),
+
+      // /fillup-assessment
     ],
   );
 });

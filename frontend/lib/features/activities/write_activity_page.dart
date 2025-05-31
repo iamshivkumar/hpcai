@@ -6,6 +6,7 @@ import 'package:ai_school/core/enums/grade.dart';
 import 'package:ai_school/core/enums/rubric.dart';
 import 'package:ai_school/core/models/activity.dart';
 import 'package:ai_school/core/repositories/activity_repository.dart';
+import 'package:ai_school/features/auth/providers/session_provider.dart';
 import 'package:ai_school/features/components/bottom_button_wrapper.dart';
 import 'package:ai_school/features/components/loading_button_text_wrapper.dart';
 import 'package:ai_school/features/components/tag_text.dart';
@@ -40,6 +41,7 @@ class WriteActivityPage extends HookConsumerWidget {
       args.initial ??
           Activity(
             id: '',
+            schoolId: ref.read(sessionProvider)!.schoolId!,
             grade: args.grade,
             area: args.area,
             title: '',
@@ -58,11 +60,13 @@ class WriteActivityPage extends HookConsumerWidget {
 
     final buildKey = useState(0);
 
+    loading.value = false;
+
     final repo = ref.read(activityRepositoryProvider);
 
     Future<void> saveActivity() async {
       if (!formKey.currentState!.validate()) return;
-      loading.value = true;
+      // loading.value = true;
       try {
         var updated = activity.value;
 

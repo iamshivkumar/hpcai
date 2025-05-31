@@ -34,4 +34,24 @@ class Assessments extends _$Assessments {
           type: type.name,
         );
   }
+
+    void sync(Assessment data) {
+    if (state.value != null) {
+      if (state.value!.any((e) => e.id == data.id)) {
+        state = AsyncData([
+          ...state.value!.map((e) => e.id == data.id ? data : e),
+        ]);
+      } else {
+        state = AsyncData([...state.value!, data]);
+      }
+    }
+  }
+
+  void remove(String id) {
+    if (state.value != null) {
+      state = AsyncData(
+        [...state.value!]..removeWhere((element) => element.id == id),
+      );
+    }
+  }
 }

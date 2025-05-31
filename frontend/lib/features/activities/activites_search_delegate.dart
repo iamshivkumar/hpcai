@@ -5,9 +5,10 @@ import 'package:ai_school/core/enums/grade.dart';
 import 'package:ai_school/core/models/activity.dart';
 import 'package:ai_school/core/repositories/activity_repository.dart';
 import 'package:ai_school/features/activities/providers/activities_provider.dart';
-import 'package:ai_school/features/activities/write_activities_page.dart';
+import 'package:ai_school/features/activities/write_activity_page.dart';
 import 'package:ai_school/features/components/async_widget.dart';
 import 'package:ai_school/features/components/bottom_button_wrapper.dart';
+import 'package:ai_school/features/components/empty_message_view.dart';
 import 'package:ai_school/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -70,6 +71,9 @@ class ActivitiesSearchDelegate extends SearchDelegate {
                   child: AsyncWidget(
                     value: ref.watch(provider),
                     data: (data) {
+                      if(data.isEmpty){
+                        return EmptyMessageView('No any activity created');
+                      }
                       return ListView.builder(
                         itemBuilder: (context, index) {
                           final activity = data[index];

@@ -3,6 +3,7 @@ const Activity = require('../models/Activity');
 // Create a new activity
 const createActivity = async (req, res) => {
   try {
+    req.body.createdBy = req.user.id;
     const newActivity = await Activity.create(req.body);
     res.status(201).json(newActivity);
   } catch (error) {
@@ -14,6 +15,9 @@ const createActivity = async (req, res) => {
 const updateActivity = async (req, res) => {
   try {
     const { id } = req.params;
+
+        req.updatedBy = req.user.id;
+
 
     const updated = await Activity.findByIdAndUpdate(
       id,
@@ -51,14 +55,18 @@ const deleteActivity = async (req, res) => {
 // List activities with filters
 const listActivities = async (req, res) => {
   try {
+
     const { grade, area, medium, schoolId } = req.query;
 
-    const query = { active: true };
+    const query = { };
+
 
     if (grade) query.grade = grade;
     if (area) query.area = area;
     if (medium) query.medium = medium;
     if (schoolId) query.schoolId = schoolId;
+
+
 
     const activities = await Activity.find(query);
 

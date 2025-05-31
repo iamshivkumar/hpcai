@@ -33,7 +33,16 @@ abstract class AssessmentSection with _$AssessmentSection {
       _$AssessmentSectionFromJson(json);
 }
 
-enum AssessmentType { activity, peer, parent, about }
+enum AssessmentType {
+  activity('Activity'),
+  about('About Me'),
+  parent('Parent Assessment'),
+  peer('Peer Assessment');
+
+  final String label;
+
+  const AssessmentType(this.label);
+}
 
 @freezed
 abstract class Assessment with _$Assessment {
@@ -113,17 +122,16 @@ abstract class QuizItem with _$QuizItem {
       _$QuizItemFromJson(json);
 }
 
-
 @freezed
 abstract class QuizItemOption with _$QuizItemOption {
-
   factory QuizItemOption({
     required int index,
     required String key,
     required String value,
   }) = _QuizItemOption;
 
-  factory QuizItemOption.fromJson(Map<String, dynamic> json) => _$QuizItemOptionFromJson(json);
+  factory QuizItemOption.fromJson(Map<String, dynamic> json) =>
+      _$QuizItemOptionFromJson(json);
 }
 
 

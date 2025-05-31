@@ -4,6 +4,7 @@ import 'package:ai_school/core/models/activity.dart';
 import 'package:ai_school/core/models/assessment.dart';
 import 'package:ai_school/core/models/class.dart';
 import 'package:ai_school/features/activities/activites_search_delegate.dart';
+import 'package:ai_school/features/assessments/assessment_page.dart';
 import 'package:ai_school/features/assessments/providers/assessments_provider.dart';
 import 'package:ai_school/features/assessments/widgets/write_activity_assessment_dialog.dart';
 import 'package:ai_school/features/components/async_widget.dart';
@@ -14,6 +15,7 @@ import 'package:ai_school/features/students/providers/students_provider.dart';
 import 'package:ai_school/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ActivityAssessmentsPageArgs {
@@ -86,7 +88,7 @@ class ActivityAssessmentsPage extends HookConsumerWidget {
               ),
             );
             if (value is Activity) {
-              showDialog(
+            final generated  =await  showDialog(
                 // ignore: use_build_context_synchronously
                 context: context,
                 builder:
@@ -98,14 +100,18 @@ class ActivityAssessmentsPage extends HookConsumerWidget {
                         schoolId: args.class$.schoolId,
                         classId: args.class$.id,
                         type: AssessmentType.activity,
-                        name: '',
+                        name: value.title,
+                        medium: 'english',
                         activityId: value.id,
                       ),
                     ),
               );
+              if(generated is Assessment){
+                ref.read(provider.notifier).sync(generated);
+              }
             }
           },
-          label: Text('Start or schedule new activity'),
+          label: Text('Start new activity'),
         ),
       ),
       body: AsyncWidget(
@@ -116,44 +122,44 @@ class ActivityAssessmentsPage extends HookConsumerWidget {
           }
           return ListView.builder(
             itemBuilder: (context, index) {
-              final session = sessions[index];
+              final assessment = sessions[index];
 
               return ListTile(
-                title: Text(session.name),
+                title: Text(assessment.name),
                 subtitle:
-                    session.groupId != null || session.studentId != null
+                    assessment.groupId != null || assessment.studentId != null
                         ? Row(
                           spacing: 12,
                           children: [
-                            if (session.groupId != null)
+                            if (assessment.groupId != null)
                               Consumer(
                                 builder: (context, ref, child) {
                                   final group =
                                       ref
                                           .watch(
-                                            groupsProvider(session.classId),
+                                            groupsProvider(assessment.classId),
                                           )
                                           .asData
                                           ?.value
-                                          .where((e) => e.id == session.groupId)
+                                          .where((e) => e.id == assessment.groupId)
                                           .firstOrNull;
                                   return Text(
                                     '${group?.name ?? 'Unknown'} Group',
                                   );
                                 },
                               ),
-                            if (session.studentId != null)
+                            if (assessment.studentId != null)
                               Consumer(
                                 builder: (context, ref, child) {
                                   final student =
                                       ref
                                           .watch(
-                                            studentsProvider(session.classId),
+                                            studentsProvider(assessment.classId),
                                           )
                                           .asData
                                           ?.value
                                           .where(
-                                            (e) => e.id == session.studentId,
+                                            (e) => e.id == assessment.studentId,
                                           )
                                           .firstOrNull;
                                   return Text(
@@ -167,14 +173,10 @@ class ActivityAssessmentsPage extends HookConsumerWidget {
                         )
                         : null,
                 onTap: () {
-                  // context.push(
-                  //   '/session',
-                  //   extra: SessionPageArgs(
-                  //     class$: args.class$,
-                  //     activity: activity,
-                  //     session: session,
-                  //   ),
-                  // );
+                  context.push(
+                    '/assessment',
+                    extra: AssessmentPageArgs(class$: args.class$, assessment: assessment,),
+                  );
                 },
               );
             },

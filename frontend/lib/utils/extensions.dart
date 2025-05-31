@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:cross_file/cross_file.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -31,7 +32,7 @@ extension BuildContextExtension on BuildContext {
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          content: Text('$e', style: TextStyle(color: scheme.errorContainer)),
+          content: Text('${e is DioException && e.message != null? e.message: e}', style: TextStyle(color: scheme.errorContainer)),
           backgroundColor: scheme.onErrorContainer,
         ),
       );

@@ -1,8 +1,13 @@
 import 'package:ai_school/core/enums/area.dart';
+import 'package:ai_school/core/enums/fillup.dart';
+import 'package:ai_school/core/models/assessment.dart';
 import 'package:ai_school/core/models/class.dart';
+import 'package:ai_school/features/assessments/activity_assessments_page.dart';
+import 'package:ai_school/features/assessments/fillup_assessment_page.dart';
 import 'package:ai_school/features/classes/providers/classes_provider.dart';
 import 'package:ai_school/features/classes/widgets/write_class_dialog.dart';
 import 'package:ai_school/features/components/async_widget.dart';
+import 'package:ai_school/features/components/custom_grid_view.dart';
 import 'package:ai_school/features/schools/providers/school_provider.dart';
 import 'package:ai_school/features/students/providers/students_provider.dart';
 import 'package:ai_school/utils/extensions.dart';
@@ -101,12 +106,12 @@ class HomePage extends ConsumerWidget {
               return classes.isEmpty
                   ? Center(
                     child: FilledButton.tonalIcon(
-                      onPressed: () async{
-                      final value = await  showDialog(
+                      onPressed: () async {
+                        final value = await showDialog(
                           context: context,
                           builder: (context) => WriteClassDialog(),
                         );
-                        if(value is Class){
+                        if (value is Class) {
                           ref.read(classesProvider.notifier).sync(value);
                         }
                       },
@@ -203,13 +208,13 @@ class HomePage extends ConsumerWidget {
                                         (e) => Card(
                                           child: InkWell(
                                             onTap: () {
-                                              // context.push(
-                                              //   '/sessions',
-                                              //   extra: SessionsPageArgs(
-                                              //     class$: class$,
-                                              //     area: e,
-                                              //   ),
-                                              // );
+                                              context.push(
+                                                '/activity-assessments',
+                                                extra: ActivityAssessmentsPageArgs(
+                                                  class$: class$,
+                                                  area: e,
+                                                ),
+                                              );
                                             },
                                             child: Padding(
                                               padding: const EdgeInsets.all(
@@ -245,73 +250,101 @@ class HomePage extends ConsumerWidget {
                                         ),
                                       )
                                       .toList(),
-                            // ),
-                            // Column(
-                            //   spacing: 8,
-                            //   crossAxisAlignment: CrossAxisAlignment.start,
-                            //   children: [
-                            //     Text('Fillups'),
-                            //     CustomGridView(
-                            //       spacing: 8,
-                            //       verticalSpacing: 8,
-                            //       children:
-                            //           Fillup.values
-                            //               .map(
-                            //                 (e) => Card(
-                            //                   child: InkWell(
-                            //                     onTap: () {
-                            //                       context.push(
-                            //                         {
-                            //                           Fillup.info:
-                            //                               '/students-infos',
-                            //                           Fillup.about:
-                            //                               '/about-mes',
-                            //                           Fillup.parent:
-                            //                               '/parent-assessments',
-                            //                           Fillup.peer:
-                            //                               '/peer-assessments',
-                            //                         }[e]!,
-                            //                         extra: class$,
-                            //                       );
-                            //                     },
-                            //                     child: Padding(
-                            //                       padding: const EdgeInsets.all(
-                            //                         16.0,
-                            //                       ),
-                            //                       child: Column(
-                            //                         spacing: 8,
-                            //                         crossAxisAlignment:
-                            //                             CrossAxisAlignment
-                            //                                 .start,
-                            //                         children: [
-                            //                           Row(
-                            //                             children: [
-                            //                               Expanded(
-                            //                                 child: Text(
-                            //                                   e.label,
-                            //                                 ),
-                            //                               ),
-                            //                               Icon(
-                            //                                 Icons
-                            //                                     .keyboard_arrow_right_rounded,
-                            //                                 size: 20,
-                            //                                 color:
-                            //                                     context
-                            //                                         .scheme
-                            //                                         .outline,
-                            //                               ),
-                            //                             ],
-                            //                           ),
-                            //                           // FillupProgressBar(),
-                            //                         ],
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                 ),
-                            //               )
-                            //               .toList(),
-                            //     ),
-                            //   ],
+                            ),
+                            Column(
+                              spacing: 8,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Fillups'),
+                                CustomGridView(
+                                  spacing: 8,
+                                  verticalSpacing: 8,
+                                  children:
+                                      Fillup.values
+                                          .map(
+                                            (e) => Card(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  if (e == Fillup.info) {
+                                                    context.push(
+                                                      '/students-infos',
+                                                      extra: class$,
+                                                    );
+                                                  } else if (e ==
+                                                      Fillup.about) {
+                                                    context.push(
+                                                      '/fillup-assessment',
+                                                      extra:
+                                                          FillupAssessmentPageArgs(
+                                                            type:
+                                                                AssessmentType
+                                                                    .about,
+                                                            class$: class$,
+                                                          ),
+                                                    );
+                                                  } else if (e ==
+                                                      Fillup.parent) {
+                                                    context.push(
+                                                      '/fillup-assessment',
+                                                      extra:
+                                                          FillupAssessmentPageArgs(
+                                                            type:
+                                                                AssessmentType
+                                                                    .parent,
+                                                            class$: class$,
+                                                          ),
+                                                    );
+                                                  } else if (e == Fillup.peer) {
+                                                    context.push(
+                                                      '/fillup-assessment',
+                                                      extra:
+                                                          FillupAssessmentPageArgs(
+                                                            type:
+                                                                AssessmentType
+                                                                    .peer,
+                                                            class$: class$,
+                                                          ),
+                                                    );
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                    16.0,
+                                                  ),
+                                                  child: Column(
+                                                    spacing: 8,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              e.label,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_arrow_right_rounded,
+                                                            size: 20,
+                                                            color:
+                                                                context
+                                                                    .scheme
+                                                                    .outline,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      // FillupProgressBar(),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                ),
+                              ],
                             ),
                           ],
                         ),

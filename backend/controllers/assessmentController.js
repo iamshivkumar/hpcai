@@ -15,6 +15,8 @@ const updateAssessment = async (req, res) => {
   try {
     const { id } = req.params;
 
+    req.body.updatedBy = req.user.id;
+
     const updated = await Assessment.findByIdAndUpdate(
       id,
       { $set: req.body },
@@ -62,7 +64,8 @@ const listAssessments = async (req, res) => {
     if (term) query.term = term;
     if (type) query.type = type;
 
-    const assessments = await Assessment.find(query).select('schoolId classId type term name groupId studentId area medium');
+    const assessments = await Assessment.find(query);
+    // .select('schoolId classId type term name groupId studentId area medium');
 
     res.status(200).json(assessments);
   } catch (error) {

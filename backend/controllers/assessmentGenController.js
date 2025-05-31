@@ -1,5 +1,5 @@
 const Assessment = require('../models/Assessment');
-const Activity = require('../models/Activity');
+const {Activity} = require('../models/Activity');
 
 
 

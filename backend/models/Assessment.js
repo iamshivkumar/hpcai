@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { activitySchema } = require('./Activity');
 
 const assessmentSchema = new mongoose.Schema({
     schoolId: {
@@ -25,11 +26,7 @@ const assessmentSchema = new mongoose.Schema({
         ref: 'Activity',
         required: false
     },
-    activity: {
-        type: Map,
-        of: mongoose.Schema.Types.Mixed,
-        default: null
-    },
+    activity: activitySchema,
 
     groupId: {
         type: mongoose.Schema.Types.ObjectId,

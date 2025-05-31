@@ -15,17 +15,17 @@ class LikeartAnswerIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final answerToIcon = {
-      LikeartAnswer.yes: 'assets/yes.svg',
-      LikeartAnswer.no: 'assets/no.svg',
-      LikeartAnswer.notSure: 'assets/not-sure.svg',
-      LikeartAnswer.sometimes: 'assets/sometimes.svg',
+      LikeartAnswer.yes: 'assets/images/yes.svg',
+      LikeartAnswer.no: 'assets/images/no.svg',
+      LikeartAnswer.notSure: 'assets/images/not-sure.svg',
+      LikeartAnswer.sometimes: 'assets/images/sometimes.svg',
     };
 
     final answerToSelectedIcon = {
-      LikeartAnswer.yes: 'assets/yes-selected.svg',
-      LikeartAnswer.no: 'assets/no-selected.svg',
-      LikeartAnswer.notSure: 'assets/not-sure-selected.svg',
-      LikeartAnswer.sometimes: 'assets/sometimes-selected.svg',
+      LikeartAnswer.yes: 'assets/images/yes-selected.svg',
+      LikeartAnswer.no: 'assets/images/no-selected.svg',
+      LikeartAnswer.notSure: 'assets/images/not-sure-selected.svg',
+      LikeartAnswer.sometimes: 'assets/images/sometimes-selected.svg',
     };
 
     return SvgPicture.asset(
