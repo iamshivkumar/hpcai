@@ -1,19 +1,24 @@
 const express = require('express');
 const {
-  createAssessment,
   updateAssessment,
   deleteAssessment,
   listAssessments,
+  getAssessmentById
 } = require('../controllers/assessmentController');
+
+const {
+  generateAssessment,
+} = require('../controllers/assessmentGenController');
+
 const { verifyToken } = require('../middleware/auth');
 
 const router = express.Router();
 
-router.post('/', verifyToken(), createAssessment);
+router.post('/', verifyToken(), generateAssessment);
 router.patch('/:id', verifyToken(), updateAssessment);
 router.delete('/:id', verifyToken(), deleteAssessment);
+router.get('/:id', verifyToken(), getAssessmentById);
 
-// Example: GET /assessments?grade=Grade1&area=science&schoolId=123
 router.get('/', verifyToken(), listAssessments);
 
 module.exports = router;

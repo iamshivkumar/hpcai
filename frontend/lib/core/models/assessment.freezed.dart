@@ -646,7 +646,7 @@ as String,
 /// @nodoc
 mixin _$QuizItem {
 
- int get index; String get key; String? get question;@JsonKey(unknownEnumValue: QuizItemType.none) QuizItemType get type;
+ int get index; String get key; String? get question;@JsonKey(unknownEnumValue: QuizItemType.none) QuizItemType get type; List<QuizItemOption>? get options;
 /// Create a copy of QuizItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -659,16 +659,16 @@ $QuizItemCopyWith<QuizItem> get copyWith => _$QuizItemCopyWithImpl<QuizItem>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuizItem&&(identical(other.index, index) || other.index == index)&&(identical(other.key, key) || other.key == key)&&(identical(other.question, question) || other.question == question)&&(identical(other.type, type) || other.type == type));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuizItem&&(identical(other.index, index) || other.index == index)&&(identical(other.key, key) || other.key == key)&&(identical(other.question, question) || other.question == question)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.options, options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,key,question,type);
+int get hashCode => Object.hash(runtimeType,index,key,question,type,const DeepCollectionEquality().hash(options));
 
 @override
 String toString() {
-  return 'QuizItem(index: $index, key: $key, question: $question, type: $type)';
+  return 'QuizItem(index: $index, key: $key, question: $question, type: $type, options: $options)';
 }
 
 
@@ -679,7 +679,7 @@ abstract mixin class $QuizItemCopyWith<$Res>  {
   factory $QuizItemCopyWith(QuizItem value, $Res Function(QuizItem) _then) = _$QuizItemCopyWithImpl;
 @useResult
 $Res call({
- int index, String key, String? question,@JsonKey(unknownEnumValue: QuizItemType.none) QuizItemType type
+ int index, String key, String? question,@JsonKey(unknownEnumValue: QuizItemType.none) QuizItemType type, List<QuizItemOption>? options
 });
 
 
@@ -696,13 +696,14 @@ class _$QuizItemCopyWithImpl<$Res>
 
 /// Create a copy of QuizItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? key = null,Object? question = freezed,Object? type = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? key = null,Object? question = freezed,Object? type = null,Object? options = freezed,}) {
   return _then(_self.copyWith(
 index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int,key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String,question: freezed == question ? _self.question : question // ignore: cast_nullable_to_non_nullable
 as String?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as QuizItemType,
+as QuizItemType,options: freezed == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as List<QuizItemOption>?,
   ));
 }
 
@@ -713,13 +714,22 @@ as QuizItemType,
 @JsonSerializable()
 
 class _QuizItem implements QuizItem {
-   _QuizItem({required this.index, required this.key, this.question, @JsonKey(unknownEnumValue: QuizItemType.none) required this.type});
+   _QuizItem({required this.index, required this.key, this.question, @JsonKey(unknownEnumValue: QuizItemType.none) required this.type, final  List<QuizItemOption>? options}): _options = options;
   factory _QuizItem.fromJson(Map<String, dynamic> json) => _$QuizItemFromJson(json);
 
 @override final  int index;
 @override final  String key;
 @override final  String? question;
 @override@JsonKey(unknownEnumValue: QuizItemType.none) final  QuizItemType type;
+ final  List<QuizItemOption>? _options;
+@override List<QuizItemOption>? get options {
+  final value = _options;
+  if (value == null) return null;
+  if (_options is EqualUnmodifiableListView) return _options;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 
 /// Create a copy of QuizItem
 /// with the given fields replaced by the non-null parameter values.
@@ -734,16 +744,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuizItem&&(identical(other.index, index) || other.index == index)&&(identical(other.key, key) || other.key == key)&&(identical(other.question, question) || other.question == question)&&(identical(other.type, type) || other.type == type));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuizItem&&(identical(other.index, index) || other.index == index)&&(identical(other.key, key) || other.key == key)&&(identical(other.question, question) || other.question == question)&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other._options, _options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,key,question,type);
+int get hashCode => Object.hash(runtimeType,index,key,question,type,const DeepCollectionEquality().hash(_options));
 
 @override
 String toString() {
-  return 'QuizItem(index: $index, key: $key, question: $question, type: $type)';
+  return 'QuizItem(index: $index, key: $key, question: $question, type: $type, options: $options)';
 }
 
 
@@ -754,7 +764,7 @@ abstract mixin class _$QuizItemCopyWith<$Res> implements $QuizItemCopyWith<$Res>
   factory _$QuizItemCopyWith(_QuizItem value, $Res Function(_QuizItem) _then) = __$QuizItemCopyWithImpl;
 @override @useResult
 $Res call({
- int index, String key, String? question,@JsonKey(unknownEnumValue: QuizItemType.none) QuizItemType type
+ int index, String key, String? question,@JsonKey(unknownEnumValue: QuizItemType.none) QuizItemType type, List<QuizItemOption>? options
 });
 
 
@@ -771,13 +781,153 @@ class __$QuizItemCopyWithImpl<$Res>
 
 /// Create a copy of QuizItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? key = null,Object? question = freezed,Object? type = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? key = null,Object? question = freezed,Object? type = null,Object? options = freezed,}) {
   return _then(_QuizItem(
 index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int,key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String,question: freezed == question ? _self.question : question // ignore: cast_nullable_to_non_nullable
 as String?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as QuizItemType,
+as QuizItemType,options: freezed == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
+as List<QuizItemOption>?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$QuizItemOption {
+
+ int get index; String get key; String get value;
+/// Create a copy of QuizItemOption
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$QuizItemOptionCopyWith<QuizItemOption> get copyWith => _$QuizItemOptionCopyWithImpl<QuizItemOption>(this as QuizItemOption, _$identity);
+
+  /// Serializes this QuizItemOption to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuizItemOption&&(identical(other.index, index) || other.index == index)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,index,key,value);
+
+@override
+String toString() {
+  return 'QuizItemOption(index: $index, key: $key, value: $value)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $QuizItemOptionCopyWith<$Res>  {
+  factory $QuizItemOptionCopyWith(QuizItemOption value, $Res Function(QuizItemOption) _then) = _$QuizItemOptionCopyWithImpl;
+@useResult
+$Res call({
+ int index, String key, String value
+});
+
+
+
+
+}
+/// @nodoc
+class _$QuizItemOptionCopyWithImpl<$Res>
+    implements $QuizItemOptionCopyWith<$Res> {
+  _$QuizItemOptionCopyWithImpl(this._self, this._then);
+
+  final QuizItemOption _self;
+  final $Res Function(QuizItemOption) _then;
+
+/// Create a copy of QuizItemOption
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? key = null,Object? value = null,}) {
+  return _then(_self.copyWith(
+index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int,key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as String,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _QuizItemOption implements QuizItemOption {
+   _QuizItemOption({required this.index, required this.key, required this.value});
+  factory _QuizItemOption.fromJson(Map<String, dynamic> json) => _$QuizItemOptionFromJson(json);
+
+@override final  int index;
+@override final  String key;
+@override final  String value;
+
+/// Create a copy of QuizItemOption
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$QuizItemOptionCopyWith<_QuizItemOption> get copyWith => __$QuizItemOptionCopyWithImpl<_QuizItemOption>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$QuizItemOptionToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuizItemOption&&(identical(other.index, index) || other.index == index)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,index,key,value);
+
+@override
+String toString() {
+  return 'QuizItemOption(index: $index, key: $key, value: $value)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$QuizItemOptionCopyWith<$Res> implements $QuizItemOptionCopyWith<$Res> {
+  factory _$QuizItemOptionCopyWith(_QuizItemOption value, $Res Function(_QuizItemOption) _then) = __$QuizItemOptionCopyWithImpl;
+@override @useResult
+$Res call({
+ int index, String key, String value
+});
+
+
+
+
+}
+/// @nodoc
+class __$QuizItemOptionCopyWithImpl<$Res>
+    implements _$QuizItemOptionCopyWith<$Res> {
+  __$QuizItemOptionCopyWithImpl(this._self, this._then);
+
+  final _QuizItemOption _self;
+  final $Res Function(_QuizItemOption) _then;
+
+/// Create a copy of QuizItemOption
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? key = null,Object? value = null,}) {
+  return _then(_QuizItemOption(
+index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int,key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as String,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

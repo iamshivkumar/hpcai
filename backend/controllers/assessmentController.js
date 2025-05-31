@@ -1,14 +1,14 @@
 const Assessment = require('../models/Assessment');
 
-// Create a new assessment
-const createAssessment = async (req, res) => {
-  try {
-    const newAssessment = await Assessment.create(req.body);
-    res.status(201).json(newAssessment);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+// // Create a new assessment
+// const createAssessment = async (req, res) => {
+//   try {
+//     const newAssessment = await Assessment.create(req.body);
+//     res.status(201).json(newAssessment);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 // Update an assessment
 const updateAssessment = async (req, res) => {
@@ -51,17 +51,18 @@ const deleteAssessment = async (req, res) => {
 // List assessments with filters
 const listAssessments = async (req, res) => {
   try {
-    const { classId, area, medium, term, schoolId } = req.query;
+    const { schoolId, classId, area, medium, term, type } = req.query;
 
     const query = { active: { $ne: false } };
 
+    if (schoolId) query.schoolId = schoolId;
     if (classId) query.classId = classId;
     if (area) query.area = area;
     if (medium) query.medium = medium;
     if (term) query.term = term;
-    if (schoolId) query.schoolId = schoolId;
+    if (type) query.type = type;
 
-    const assessments = await Assessment.find(query);
+    const assessments = await Assessment.find(query).select('schoolId classId type term name groupId studentId area medium');
 
     res.status(200).json(assessments);
   } catch (error) {
@@ -69,9 +70,26 @@ const listAssessments = async (req, res) => {
   }
 };
 
+
+// Get assessment by ID
+const getAssessmentById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const assessment = await Assessment.findById(id);
+
+    if (!assessment) return res.status(404).json({ error: 'Assessment not found' });
+
+    res.status(200).json(assessment);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
 module.exports = {
-  createAssessment,
+  // createAssessment,
   updateAssessment,
   deleteAssessment,
-  listAssessments
+  listAssessments,
+  getAssessmentById,
 };

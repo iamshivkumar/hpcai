@@ -11,6 +11,7 @@ const express = require('express');
      const teachersRoutes = require('./routes/teachers');
      const studentsRoutes = require('./routes/students');
      const assessmentsRoutes = require('./routes/assessments');
+     const evolutionsRoutes = require('./routes/evolutions');
      const config = require('./config/config');
 
      const app = express();
@@ -46,6 +47,7 @@ const express = require('express');
      app.use('/students', studentsRoutes);
      app.use('/teachers', teachersRoutes);
      app.use('/assessments', assessmentsRoutes);
+     app.use('/evolutions', evolutionsRoutes);
 
      // Error handling
      app.use((err, req, res, next) => {

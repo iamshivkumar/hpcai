@@ -44,8 +44,7 @@ abstract class Assessment with _$Assessment {
     required AssessmentType type,
     required String name,
     String? activityId,
-    @JsonKey(includeToJson: false)
-    Activity? activity,
+    @JsonKey(includeToJson: false) Activity? activity,
     String? groupId,
     String? studentId,
     Area? area,
@@ -107,11 +106,29 @@ abstract class QuizItem with _$QuizItem {
     required String key,
     String? question,
     @JsonKey(unknownEnumValue: QuizItemType.none) required QuizItemType type,
+    List<QuizItemOption>? options,
   }) = _QuizItem;
 
   factory QuizItem.fromJson(Map<String, dynamic> json) =>
       _$QuizItemFromJson(json);
 }
+
+
+@freezed
+abstract class QuizItemOption with _$QuizItemOption {
+
+  factory QuizItemOption({
+    required int index,
+    required String key,
+    required String value,
+  }) = _QuizItemOption;
+
+  factory QuizItemOption.fromJson(Map<String, dynamic> json) => _$QuizItemOptionFromJson(json);
+}
+
+
+
+
 
 
 

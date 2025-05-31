@@ -27,7 +27,14 @@ const studentSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true
-  }
+  },
+
+
+  activities: {
+    type: Map,
+    of: mongoose.Schema.Types.Mixed,
+    default: null
+  },
 }, { timestamps: true });
 
 

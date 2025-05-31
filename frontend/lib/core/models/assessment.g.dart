@@ -132,6 +132,10 @@ _QuizItem _$QuizItemFromJson(Map<String, dynamic> json) => _QuizItem(
     json['type'],
     unknownValue: QuizItemType.none,
   ),
+  options:
+      (json['options'] as List<dynamic>?)
+          ?.map((e) => QuizItemOption.fromJson(e as Map<String, dynamic>))
+          .toList(),
 );
 
 Map<String, dynamic> _$QuizItemToJson(_QuizItem instance) => <String, dynamic>{
@@ -139,6 +143,7 @@ Map<String, dynamic> _$QuizItemToJson(_QuizItem instance) => <String, dynamic>{
   'key': instance.key,
   'question': instance.question,
   'type': _$QuizItemTypeEnumMap[instance.type]!,
+  'options': instance.options?.map((e) => e.toJson()).toList(),
 };
 
 const _$QuizItemTypeEnumMap = {
@@ -150,3 +155,17 @@ const _$QuizItemTypeEnumMap = {
   QuizItemType.multipleChoice: 'multiple-choice',
   QuizItemType.none: 'none',
 };
+
+_QuizItemOption _$QuizItemOptionFromJson(Map<String, dynamic> json) =>
+    _QuizItemOption(
+      index: (json['index'] as num).toInt(),
+      key: json['key'] as String,
+      value: json['value'] as String,
+    );
+
+Map<String, dynamic> _$QuizItemOptionToJson(_QuizItemOption instance) =>
+    <String, dynamic>{
+      'index': instance.index,
+      'key': instance.key,
+      'value': instance.value,
+    };

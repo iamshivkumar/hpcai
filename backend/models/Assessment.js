@@ -20,11 +20,31 @@ const assessmentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    activityId:  {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Activity',
+        required: false
+    },
     activity: {
         type: Map,
         of: mongoose.Schema.Types.Mixed,
         default: null
     },
+
+    groupId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Group',
+        required: false
+    },
+
+    studentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student',
+        required: false
+    },
+
+
+    //   final String? studentId;
     sections: {
         type: [Map], // Flexible structure per section
         default: [],
